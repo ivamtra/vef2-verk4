@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Course from "../components/Course";
 import { useFetch } from "../hooks/useFetch";
 import { BASE_URL } from "../lib/constants";

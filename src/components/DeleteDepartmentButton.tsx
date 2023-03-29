@@ -26,7 +26,6 @@ const DeleteDepartmentButton = ({ slug }: any) => {
         if (!response.ok) {
           throw new Error(`Response: ${response.status}`);
         }
-        console.log("Department deleted successfully");
         toast.success("Department deleted successfully \n Redirecting...", {autoClose: 2000})
 
         setTimeout(() => navigate("/departments"), 2000)

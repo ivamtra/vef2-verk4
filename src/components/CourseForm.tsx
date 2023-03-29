@@ -16,11 +16,6 @@ function CourseForm() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleSubmit(event: any) {
-    console.log('title', title)
-    console.log('semester', semester)
-    console.log('description', description)
-    console.log('level', level)
-    console.log('units', units)
 
     event.preventDefault();
 
@@ -36,7 +31,6 @@ function CourseForm() {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        console.log("Form submitted successfully");
         // Clear the form inputs
         setTitle("");
         setDescription("");

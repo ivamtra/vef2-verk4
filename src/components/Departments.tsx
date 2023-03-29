@@ -14,7 +14,7 @@ const Departments: FC<DepartmentsProps> = (
   const { departments } = departmentsProps;
   return (
     <>
-    <DepartmentForm />
+    <DepartmentForm method="POST"/>
       <ul className="">
         {departments.map((department) => {
           return (

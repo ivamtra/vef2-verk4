@@ -9,7 +9,6 @@ interface CourseProps {
 
 const Course = (courseProps: CourseProps) => {
   const { course, slug } = courseProps;
-  console.log("Hello");
 
   return (
     <>
