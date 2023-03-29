@@ -2,27 +2,50 @@ import { useState } from "react";
 import { BASE_URL } from "../lib/constants";
 import { ToastContainer, toast } from "react-toastify";
 import React from "react";
-import { useParams } from "react-router-dom";
-function CourseForm() {
+import { useNavigate, useParams } from "react-router-dom";
+import { CourseObject } from "../types";
+
+interface CourseFormProps {
+  course?: CourseObject;
+  method: "POST" | "PATCH";
+}
+
+const CourseForm = (courseFormProps: CourseFormProps) => {
+  const { course, method } = courseFormProps;
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [courseId, setCourseId] = useState("")
+  const [courseId, setCourseId] = useState("");
   const [semester, setSemester] = useState("Vor");
   const [description, setDescription] = useState("");
   const [level, setLevel] = useState("");
   const [url, setUrl] = useState("");
   const [units, setUnits] = useState(0);
+  const [newCourse, setNewCourse] = useState({course})
 
-  const {slug} = useParams()
+  const { slug } = useParams();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleSubmit(event: any) {
-
     event.preventDefault();
 
+    // Ef method er PATCH þá höfum við sjálfkrafa aðgang að course
+    const api_url =
+      method === "POST"
+        ? `${BASE_URL}/departments/${slug}/courses`
+        : `${BASE_URL}/departments/${slug}/courses/${course?.courseId}`;
+
     // Send the form data to the server
-    fetch(`${BASE_URL}/departments/${slug}/courses`, {
-      method: "POST",
-      body: JSON.stringify({ title, courseId, semester, description, level, url, units}),
+    fetch(api_url, {
+      method,
+      body: JSON.stringify({
+        title,
+        courseId,
+        semester,
+        description,
+        level,
+        url,
+        units,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -34,10 +57,16 @@ function CourseForm() {
         // Clear the form inputs
         setTitle("");
         setDescription("");
-        toast.success("Department Created", {
+        toast.success( method === 'POST' ? "Course Created" : 'Course updated', {
           autoClose: 1000,
         });
-        setTimeout(() => window.location.reload(), 1000);
+        setTimeout(
+          () =>
+            method === "POST"
+              ? window.location.reload()
+              : navigate(`/departments/${slug}/courses`),
+          1000
+        );
       })
       .catch((error: Error) => {
         toast.error(error.message);
@@ -51,10 +80,15 @@ function CourseForm() {
         onSubmit={handleSubmit}
         className="max-w-2xl mx-auto border border-gray-300 p-4 rounded-lg sm:p-8"
       >
-        <h2 className=" text-xl mb-4 text-center font-bold text-green-700">Búa til nýjan áfanga</h2>
+        <h2 className=" text-xl mb-4 text-center font-bold text-green-700">
+          {method === "POST" ? "Búa til nýjan áfanga" : "Breyta áfanga"}
+        </h2>
         <div className="mb-4">
-          <label htmlFor="name" className="block font-medium text-gray-700 mb-2">
-            Department Name:
+          <label
+            htmlFor="name"
+            className="block font-medium text-gray-700 mb-2"
+          >
+            Course Name:
           </label>
           <input
             type="text"
@@ -65,7 +99,10 @@ function CourseForm() {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="name" className="block font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="name"
+            className="block font-medium text-gray-700 mb-2"
+          >
             Course id:
           </label>
           <input
@@ -77,7 +114,10 @@ function CourseForm() {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="description" className="block font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="description"
+            className="block font-medium text-gray-700 mb-2"
+          >
             Description:
           </label>
           <textarea
@@ -88,7 +128,10 @@ function CourseForm() {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label htmlFor="semester" className="block font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="semester"
+            className="block font-medium text-gray-700 mb-2"
+          >
             Semester:
           </label>
           <select
@@ -103,7 +146,10 @@ function CourseForm() {
           </select>
         </div>
         <div className="mb-4">
-          <label htmlFor="name" className="block font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="name"
+            className="block font-medium text-gray-700 mb-2"
+          >
             Units:
           </label>
           <input
@@ -115,7 +161,10 @@ function CourseForm() {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="name" className="block font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="name"
+            className="block font-medium text-gray-700 mb-2"
+          >
             Level:
           </label>
           <input
@@ -127,7 +176,10 @@ function CourseForm() {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="name" className="block font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="name"
+            className="block font-medium text-gray-700 mb-2"
+          >
             Url:
           </label>
           <input
@@ -149,6 +201,6 @@ function CourseForm() {
       <ToastContainer />
     </>
   );
-}
+};
 
 export default CourseForm;

@@ -3,19 +3,18 @@ import { BASE_URL } from "../lib/constants";
 import { ToastContainer, toast } from "react-toastify";
 import React from "react";
 import { DepartmentObject } from "../types";
-import { slugify } from "../lib/slugify";
 import { useNavigate } from "react-router";
 interface DepartmentFormProps {
-  method?: "POST" | "PATCH";
+  method: "POST" | "PATCH";
   department?: DepartmentObject;
 }
 const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
-    const navigate = useNavigate()
-  const { method, department } = departmentFormProps || "POST";
+  const navigate = useNavigate();
+  const { method, department } = departmentFormProps;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   useEffect(() => {
-    if (method === 'PATCH' && department) {
+    if (method === "PATCH" && department) {
       setTitle(department.title);
       setDescription(department.description);
     }
@@ -53,7 +52,13 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
             autoClose: 1000,
           });
         }
-        setTimeout(() =>  method === 'PATCH' ? navigate('/departments') : window.location.reload(), 1000);
+        setTimeout(
+          () =>
+            method === "PATCH"
+              ? navigate("/departments")
+              : window.location.reload(),
+          1000
+        );
       })
       .catch((error: Error) => {
         toast.error(error.message);
@@ -68,8 +73,7 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
         className="max-w-2xl mx-auto border border-gray-300 p-4 rounded-lg sm:p-8"
       >
         <h2 className=" text-xl mb-4 text-center font-bold text-green-700">
-            {method === 'POST' ? 'Búa til nýja deild' : 'Breyta deild'}
-          
+          {method === "POST" ? "Búa til nýja deild" : "Breyta deild"}
         </h2>
         <div className="mb-4">
           <label

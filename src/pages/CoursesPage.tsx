@@ -22,7 +22,7 @@ const CoursesPage = () => {
   return (
     <>
       <h1>CoursesPage</h1>
-      <CourseForm />
+      <CourseForm method="POST" />
       <div>{courses ? <Courses courses={courses}  slug={slug}/> : <>Empty</>}</div>
     </>
   );
