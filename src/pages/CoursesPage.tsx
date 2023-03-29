@@ -4,35 +4,21 @@ import { BASE_URL } from "../lib/constants";
 import Courses from "../components/Courses";
 import React from "react";
 import CourseForm from "../components/CourseForm";
+import Empty from "../components/Empty";
+import Error from "../components/Error";
+import Loading from "../components/Loading";
+import { useFetch } from "../hooks/useFetch";
 
 const CoursesPage = () => {
   const { slug } = useParams();
-  const [courses, setCourses] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  useEffect(() => {
-    fetch(`${BASE_URL}/departments/${slug}/courses`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCourses(data);
-        setLoading(false);
+  const {data: courses, loading, error} = useFetch(`${BASE_URL}/departments/${slug}/courses`)
 
-        console.log("shit");
-      })
-      .catch((err) => {
-        console.error(err);
-        console.log("catch");
-        setError(true);
-      });
-  }, [slug]);
+  if (loading) return (<><Loading /></>)
 
-  if (loading) {
-    return <h1 className=" tex-lg to-red-600">Loading</h1>;
-  }
+  if (error) return (<><Error message={error} /></>)
 
-  if (error) {
-    return <>Error</>;
-  }
+  if (!courses) return (<><Empty /></>)
+
   return (
     <>
       <h1>CoursesPage</h1>

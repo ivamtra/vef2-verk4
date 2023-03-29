@@ -31,7 +31,7 @@ const Department: FC<DepartmentProps> = (departmentProps: DepartmentProps) => {
             </Link>
           }
         </p>
-        <p className="text-white mb-4">Síðast uppfært: {department.updated}</p>
+        <p className="text-white mb-4">Síðast uppfært: { new Date(department.updated).toLocaleString()}</p>
       </div>
       {showLink ? (<></>) : (<DeleteDepartmentButton slug={department.slug} />)}
     </>

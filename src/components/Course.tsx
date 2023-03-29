@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { CourseObject } from "../types";
 import React from "react";
-import { BASE_URL } from "../lib/constants";
 
 interface CourseProps {
   course: CourseObject;
