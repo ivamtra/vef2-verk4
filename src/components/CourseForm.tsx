@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../lib/constants";
 import { ToastContainer, toast } from "react-toastify";
 import React from "react";
@@ -13,14 +13,27 @@ interface CourseFormProps {
 const CourseForm = (courseFormProps: CourseFormProps) => {
   const { course, method } = courseFormProps;
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [courseId, setCourseId] = useState("");
-  const [semester, setSemester] = useState("Vor");
-  const [description, setDescription] = useState("");
-  const [level, setLevel] = useState("");
-  const [url, setUrl] = useState("");
-  const [units, setUnits] = useState(0);
-  const [newCourse, setNewCourse] = useState({course})
+  //   const [title, setTitle] = useState("");
+  //   const [courseId, setCourseId] = useState("");
+  //   const [semester, setSemester] = useState("Vor");
+  //   const [description, setDescription] = useState("");
+  //   const [level, setLevel] = useState("");
+  //   const [url, setUrl] = useState("");
+  //   const [units, setUnits] = useState(0);
+  const emptyCourseFields: Partial<CourseObject> = {
+    title: "",
+    courseId: "",
+    // Default Vor í field
+    semester: "Vor",
+    level: "",
+    url: "",
+    units: 0,
+  };
+  const [newCourse, setNewCourse] =
+    useState<Partial<CourseObject>>(emptyCourseFields);
+  useEffect(() => {
+    if (course) setNewCourse(course);
+  }, []);
 
   const { slug } = useParams();
 
@@ -37,27 +50,19 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
     // Send the form data to the server
     fetch(api_url, {
       method,
-      body: JSON.stringify({
-        title,
-        courseId,
-        semester,
-        description,
-        level,
-        url,
-        units,
-      }),
+      body: JSON.stringify(newCourse),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => {
         if (!response.ok) {
+            console.log(response)
           throw new Error("Network response was not ok");
         }
         // Clear the form inputs
-        setTitle("");
-        setDescription("");
-        toast.success( method === 'POST' ? "Course Created" : 'Course updated', {
+        setNewCourse(emptyCourseFields);
+        toast.success(method === "POST" ? "Course Created" : "Course updated", {
           autoClose: 1000,
         });
         setTimeout(
@@ -93,8 +98,10 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
           <input
             type="text"
             id="name"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            value={newCourse.title}
+            onChange={(event) =>
+              setNewCourse({ ...newCourse, title: event.target.value })
+            }
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -108,25 +115,14 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
           <input
             type="text"
             id="name"
-            value={courseId}
-            onChange={(event) => setCourseId(event.target.value)}
+            value={newCourse.courseId}
+            onChange={(event) =>
+              setNewCourse({ ...newCourse, courseId: event.target.value })
+            }
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="mb-4">
-          <label
-            htmlFor="description"
-            className="block font-medium text-gray-700 mb-2"
-          >
-            Description:
-          </label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          ></textarea>
-        </div>
+
         <div className="mb-4">
           <label
             htmlFor="semester"
@@ -135,9 +131,11 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
             Semester:
           </label>
           <select
-            value={semester}
+            value={newCourse.semester}
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            onChange={(event) => setSemester(event.target.value)}
+            onChange={(event) =>
+              setNewCourse({ ...newCourse, semester: event.target.value })
+            }
           >
             <option value="Vor">Vor</option>
             <option value="Sumar">Sumar</option>
@@ -155,8 +153,10 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
           <input
             type="number"
             id="name"
-            value={units}
-            onChange={(event) => setUnits(Number(event.target.value))}
+            value={newCourse.units}
+            onChange={(event) =>
+              setNewCourse({ ...newCourse, units: Number(event.target.value) })
+            }
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -170,8 +170,10 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
           <input
             type="text"
             id="name"
-            value={level}
-            onChange={(event) => setLevel(event.target.value)}
+            value={newCourse.level}
+            onChange={(event) =>
+              setNewCourse({ ...newCourse, level: event.target.value })
+            }
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -185,8 +187,10 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
           <input
             type="text"
             id="name"
-            value={url}
-            onChange={(event) => setUrl(event.target.value)}
+            value={newCourse.url}
+            onChange={(event) =>
+              setNewCourse({ ...newCourse, url: event.target.value })
+            }
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>

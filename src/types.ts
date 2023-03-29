@@ -14,7 +14,6 @@ export type DepartmentObject = {
       title: string
       units: number
       url: string
-  
   }
   
   
