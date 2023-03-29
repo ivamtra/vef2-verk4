@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BASE_URL } from "../lib/constants";
 import Departments from "../components/Departments";
 import React from "react";
@@ -37,14 +36,9 @@ const DepartmentsPage = () => {
 
   return (
     <>
-      <h1>DepartmentsPage</h1>
-
       <div className="flex flex-col items-center justify-center">
-        {departments ? (
-          <Departments departments={departments} />
-        ) : (
-          <h1>Empty</h1>
-        )}
+      <h1 className=" text-4xl mb-8">Deildarsíða</h1>
+        <Departments departments={departments} />
       </div>
     </>
   );

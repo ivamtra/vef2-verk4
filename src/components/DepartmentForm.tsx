@@ -18,7 +18,7 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
       setTitle(department.title);
       setDescription(department.description);
     }
-  }, []);
+  }, [department, method]);
 
   function handleSubmit(event: any) {
     event.preventDefault();

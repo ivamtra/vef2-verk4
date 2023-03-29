@@ -40,10 +40,9 @@ const CoursePage = () => {
 
   return (
     <>
-      <h1>Course Page</h1>
-
       <div className=" my-0 mx-auto flex flex-col items-center justify-center">
-        <Course course={course} slug={slug} />
+        <h1 className=" text-4xl mb-8">Áfangasíða</h1>
+        <Course course={course} slug={slug} showLink={false} />
         <CourseForm course={course} method="PATCH" />
         <DeleteCourseButton slug={slug} courseId={courseId} />
       </div>

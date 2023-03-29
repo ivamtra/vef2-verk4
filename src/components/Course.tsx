@@ -5,10 +5,11 @@ import React from "react";
 interface CourseProps {
   course: CourseObject;
   slug?: string;
+  showLink: boolean;
 }
 
 const Course = (courseProps: CourseProps) => {
-  const { course, slug } = courseProps;
+  const { course, slug, showLink } = courseProps;
 
   return (
     <>
@@ -16,9 +17,13 @@ const Course = (courseProps: CourseProps) => {
         <div className="px-4 py-2 flex flex-col md:flex-row md:items-center">
           <div className="md:w-1/4 mr-4">
             <p className="text-gray-700 font-bold text-lg">
-              <Link to={`/departments/${slug}/courses/${course.courseId}`}>
-                {course.courseId}
-              </Link>
+              {showLink ? (
+                <Link to={`/departments/${slug}/courses/${course.courseId}`}>
+                  {course.courseId} ↗️
+                </Link>
+              ) : (
+                <>{course.courseId}</>
+              )}
             </p>
           </div>
           <div className="md:w-3/4">

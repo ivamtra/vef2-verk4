@@ -33,7 +33,7 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
     useState<Partial<CourseObject>>(emptyCourseFields);
   useEffect(() => {
     if (course) setNewCourse(course);
-  }, []);
+  }, [course]);
 
   const { slug } = useParams();
 

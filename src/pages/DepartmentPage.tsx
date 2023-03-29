@@ -40,8 +40,8 @@ const DepartmentPage = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <h1>DepartmentPage</h1>
         <div className="flex flex-col gap-4 ">
+          <h1 className=" text-4xl mb-8">Deildarsíða</h1>
           <Department department={department} showLink={false} />
           <DepartmentForm department={department} method="PATCH" />
         </div>

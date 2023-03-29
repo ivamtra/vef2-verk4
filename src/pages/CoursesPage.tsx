@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../lib/constants";
 import Courses from "../components/Courses";
@@ -40,8 +39,8 @@ const CoursesPage = () => {
 
   return (
     <>
-      <h1>CoursesPage</h1>
       <div className="flex flex-col items-center justify-center">
+        <h1 className=" text-4xl mb-8">Áfangasíða</h1>
         <CourseForm method="POST" />
         <Courses courses={courses} slug={slug} />
       </div>

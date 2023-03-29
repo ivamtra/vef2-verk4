@@ -14,7 +14,7 @@ const Courses = (coursesProps: CoursesProps) => {
     <ul>
       {courses.map((course) => {
         return <li key={course.id}>
-            <Course course={course} slug={slug}/>
+            <Course course={course} slug={slug} showLink={true}/>
 
         </li>;
       })}
