@@ -41,8 +41,10 @@ const DepartmentPage = () => {
     <>
       <div className="flex flex-col items-center justify-center">
         <h1>DepartmentPage</h1>
-        <Department department={department} showLink={false} />
-        <DepartmentForm department={department} method="PATCH" />
+        <div className="flex flex-col gap-4 ">
+          <Department department={department} showLink={false} />
+          <DepartmentForm department={department} method="PATCH" />
+        </div>
       </div>
     </>
   );

@@ -56,10 +56,12 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
       },
     })
       .then((response) => {
+        // Fara í næsta skref
         if (!response.ok) {
-            console.log(response)
-          throw new Error("Network response was not ok");
+          return response.json();
         }
+        // Status ok og allt í góðu til að gefa success
+
         // Clear the form inputs
         setNewCourse(emptyCourseFields);
         toast.success(method === "POST" ? "Course Created" : "Course updated", {
@@ -72,6 +74,15 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
               : navigate(`/departments/${slug}/courses`),
           1000
         );
+      })
+      // Hér status ekki 200 og því einhver villa
+      .then((data) => {
+
+        const errors: any[] = data?.errors;
+        if (errors)
+          errors.forEach((error) => {
+            toast.error(error.msg);
+          });
       })
       .catch((error: Error) => {
         toast.error(error.message);

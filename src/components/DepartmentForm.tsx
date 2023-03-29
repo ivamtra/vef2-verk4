@@ -38,7 +38,9 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          // Response ekki ok og einhver villa
+          // Förum í næsta .then
+          return response.json();
         }
         // Clear the form inputs
         setTitle("");
@@ -60,6 +62,15 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
           1000
         );
       })
+      // Villumeðhöndlun
+      .then((data) => {
+        const errors: any[] = data?.errors;
+        if (errors)
+          errors.forEach((error) => {
+            toast.error(error.msg);
+          });
+      })
+      // Ehv önnur villa
       .catch((error: Error) => {
         toast.error(error.message);
         console.error("There was a problem submitting the form:", error);
@@ -101,7 +112,7 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
             id="description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           ></textarea>
         </div>
         <button
