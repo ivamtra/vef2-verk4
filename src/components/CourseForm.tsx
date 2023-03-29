@@ -150,7 +150,7 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
           >
             <option value="Vor">Vor</option>
             <option value="Sumar">Sumar</option>
-            <option value="Hálfsárs">Hálfsárs</option>
+            <option value="Heilsárs">Heilsárs</option>
             <option value="Haust">Haust</option>
           </select>
         </div>

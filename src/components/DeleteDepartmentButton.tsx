@@ -47,7 +47,7 @@ const DeleteDepartmentButton = ({ slug }: any) => {
         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md mt-4 focus:outline-none focus:shadow-outline"
         disabled={loading}
       >
-        {loading ? "Deleting..." : "Delete Department"}
+        {loading ? "Eyði..." : "Eyða áfanga"}
       </button>
       <ToastContainer />
     </>
