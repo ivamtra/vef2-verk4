@@ -23,15 +23,17 @@ const Department: FC<DepartmentProps> = (departmentProps: DepartmentProps) => {
           )}
         </h2>
         <p className="text-white mb-4">Lýsing: {department.description}</p>
-        <p className="text-white mb-4">
-          Áfangar:{" "}
+        
+        <p className="text-white mb-4">Síðast uppfært: { new Date(department.updated).toLocaleString()}</p>
+        <p className=" text-cyan-400 text-lg mb-4">
           {
             <Link to={`/departments/${department.slug}/courses`} className="font-bold">
-              Áfangar
+                <strong>
+              Skoða áfanga
+              </strong>
             </Link>
           }
         </p>
-        <p className="text-white mb-4">Síðast uppfært: { new Date(department.updated).toLocaleString()}</p>
       </div>
       {showLink ? (<></>) : (<DeleteDepartmentButton slug={department.slug} />)}
     </>
