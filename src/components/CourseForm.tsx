@@ -94,7 +94,7 @@ const CourseForm = (courseFormProps: CourseFormProps) => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="max-w-2xl mx-auto border border-gray-300 p-4 rounded-lg sm:p-8"
+        className="max-w-2xl  border border-gray-300 p-4 rounded-lg sm:p-8 w-9/12 m-3"
       >
         <h2 className=" text-xl mb-4 text-center font-bold text-green-700">
           {method === "POST" ? "Búa til nýjan áfanga" : "Breyta áfanga"}

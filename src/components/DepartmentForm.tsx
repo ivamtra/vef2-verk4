@@ -81,7 +81,7 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="max-w-2xl mx-auto border border-gray-300 p-4 rounded-lg sm:p-8"
+        className=" border border-gray-300 p-4 rounded-lg md:max-w-md lg:max-w-lg xl:max-w-xl "
       >
         <h2 className=" text-xl mb-4 text-center font-bold text-green-700">
           {method === "POST" ? "Búa til nýja deild" : "Breyta deild"}
@@ -112,7 +112,7 @@ const DepartmentForm = (departmentFormProps: DepartmentFormProps) => {
             id="description"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className=" appearance-none h-[100px] border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           ></textarea>
         </div>
         <button

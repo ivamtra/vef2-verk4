@@ -7,6 +7,7 @@ import Error from "../components/Error";
 import Loading from "../components/Loading";
 import Empty from "../components/Empty";
 import CourseForm from "../components/CourseForm";
+import DeleteCourseButton from "../components/DeleteCourseButton";
 
 const CoursePage = () => {
   const { slug, courseId } = useParams();
@@ -15,20 +16,37 @@ const CoursePage = () => {
     loading,
     error,
   } = useFetch(`${BASE_URL}/departments/${slug}/courses/${courseId}`);
-  
-  if (loading) return (<><Loading /></>)
 
-  if (error) return (<><Error message={error} /></>)
+  if (loading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
 
-  if (!course) return (<><Empty /></>)
+  if (error)
+    return (
+      <>
+        <Error message={error} />
+      </>
+    );
+
+  if (!course)
+    return (
+      <>
+        <Empty />
+      </>
+    );
 
   return (
     <>
       <h1>Course Page</h1>
 
-
-      <Course course={course} slug={slug}/>
-      <CourseForm course={course} method="PATCH" />
+      <div className=" my-0 mx-auto flex flex-col items-center justify-center">
+        <Course course={course} slug={slug} />
+        <CourseForm course={course} method="PATCH" />
+        <DeleteCourseButton slug={slug} courseId={courseId} />
+      </div>
     </>
   );
 };
